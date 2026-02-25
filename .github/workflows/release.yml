@@ -31,7 +31,7 @@ jobs:
 
       - name: Compile (release build)
         run: |
-          FQBN="Seeeduino:nrf52:xiaonRF52840Sense:softdevice=s140v6,debug=l0"
+          FQBN="Seeeduino:nrf52:xiaonRF52840Sense"
           arduino-cli compile             --fqbn "$FQBN"             --warnings all             --output-dir build             sketch/XIAO_StretchAngle
 
       - name: Create GitHub Release + Upload Artifacts
