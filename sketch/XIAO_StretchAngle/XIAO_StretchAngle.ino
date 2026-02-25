@@ -9,6 +9,10 @@
 
 #include <Arduino.h>
 
+#ifdef ARDUINO_ARCH_NRF52
+#define Serial SerialUSB
+#endif
+
 // ADC / sensor
 const int   ADC_PIN   = A0;
 const int   ADC_MAX   = 4095;        // 12-bit ADC
