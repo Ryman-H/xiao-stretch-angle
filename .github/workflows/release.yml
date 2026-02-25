@@ -1,0 +1,40 @@
+name: Release (Build Firmware + Publish)
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Arduino CLI
+        uses: arduino/setup-arduino-cli@v2
+
+      - name: Configure Arduino CLI (Seeed boards)
+        run: |
+          arduino-cli config init
+          arduino-cli config set board_manager.additional_urls https://files.seeedstudio.com/arduino/package_seeeduino_boards_index.json
+          arduino-cli core update-index
+
+      - name: Install core (Seeed nRF52)
+        run: |
+          arduino-cli core install Seeeduino:nrf52
+
+      - name: Compile (release build)
+        run: |
+          FQBN="Seeeduino:nrf52:xiaonRF52840Sense:softdevice=s140v6,debug=l0"
+          arduino-cli compile             --fqbn "$FQBN"             --warnings all             --output-dir build             sketch/XIAO_StretchAngle
+
+      - name: Create GitHub Release + Upload Artifacts
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/**
