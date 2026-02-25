@@ -22,7 +22,7 @@ Designed for Arduino Serial Plotter.
 5. Tools → Serial Plotter
    - Baud: **921600**
 
-## GitHub CI/CD (optional, professional practice)
+## GitHub CI/CD
 - CI compiles the sketch on every push/PR using Arduino CLI.
 - Release workflow builds and attaches compiled outputs when you create a tag like `v1.0.0`.
 
