@@ -30,7 +30,7 @@ jobs:
         run: |
           # If CI fails here, it is usually the FQBN/options differing by core version.
           # We'll confirm the exact FQBN later in "Step 3".
-          FQBN="Seeeduino:nrf52:xiaonRF52840Sense:softdevice=s140v6,debug=l0"
+          FQBN="Seeeduino:nrf52:xiaonRF52840Sense"
           arduino-cli compile             --fqbn "$FQBN"             --warnings all             --output-dir build             sketch/XIAO_StretchAngle
 
       - name: Upload build artifacts
