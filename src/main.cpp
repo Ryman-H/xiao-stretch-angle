@@ -1,5 +1,7 @@
 #include <Arduino.h>
 
+extern Adafruit_USBD_CDC Serial;
+
 const int   ADC_PIN   = A0;
 const int   ADC_MAX   = 4095;
 const float R_FIXED   = 330000.0f;
