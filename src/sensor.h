@@ -15,7 +15,7 @@ public:
 private:
     float readAdcAveraged();
     float adcToKohm(float adc);
-    float resistanceToAngleDeg(float r_kohm);
+    float resistanceToAngleDeg(float r_kohm) const;
 
 private:
     int _adcPin;
