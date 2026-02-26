@@ -23,7 +23,7 @@ float AngleSensor::adcToKohm(float adc) {
     return r_ohm / 1000.0f;
 }
 
-float AngleSensor::resistanceToAngleDeg(float x) {
+float AngleSensor::resistanceToAngleDeg(float x) const {
     if (x < R_MIN_KOHM) x = R_MIN_KOHM;
     if (x > R_MAX_KOHM) x = R_MAX_KOHM;
 
