@@ -1,5 +1,5 @@
 #include <Arduino.h>
-
+#include "Adafruit_TinyUSB.h"
 extern Adafruit_USBD_CDC Serial;
 
 const int   ADC_PIN   = A0;
