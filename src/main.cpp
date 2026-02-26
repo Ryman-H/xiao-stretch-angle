@@ -43,10 +43,9 @@ static inline float resistanceToAngleDeg(float x) {
 }
 
 void setup() {
-  SerialUSB.begin(921600);
-  while (!SerialUSB) delay(10);   // Wait for USB CDC
+  Serial.begin(921600);
+  while (!Serial) delay(10);  // Wait for USB CDC
   analogReadResolution(12);
-  delay(10);
 }
 
 void loop() {
@@ -59,16 +58,17 @@ void loop() {
     r_kohm_smoothed = r_kohm;
     initialized = true;
   } else {
-    r_kohm_smoothed = SMOOTH_ALPHA * r_kohm + (1.0f - SMOOTH_ALPHA) * r_kohm_smoothed;
+    r_kohm_smoothed = SMOOTH_ALPHA * r_kohm +
+                      (1.0f - SMOOTH_ALPHA) * r_kohm_smoothed;
   }
 
   float angle_deg = resistanceToAngleDeg(r_kohm_smoothed);
 
   uint32_t now = micros();
   if ((int32_t)(now - nextPrintUs) >= 0) {
-    SerialUSB.print(angle_deg, 3);
-    SerialUSB.print(", ");
-    SerialUSB.println(r_kohm_smoothed, 4);
+    Serial.print(angle_deg, 3);
+    Serial.print(", ");
+    Serial.println(r_kohm_smoothed, 4);
     nextPrintUs = now + (1000000UL / PRINT_HZ);
   }
 }
