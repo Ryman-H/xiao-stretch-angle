@@ -43,7 +43,8 @@ static inline float resistanceToAngleDeg(float x) {
 }
 
 void setup() {
-  Serial.begin(921600);
+  SerialUSB.begin(921600);
+  while (!SerialUSB) delay(10);   // Wait for USB CDC
   analogReadResolution(12);
   delay(10);
 }
@@ -65,9 +66,9 @@ void loop() {
 
   uint32_t now = micros();
   if ((int32_t)(now - nextPrintUs) >= 0) {
-    Serial.print(angle_deg, 3);
-    Serial.print(", ");
-    Serial.println(r_kohm_smoothed, 4);
+    SerialUSB.print(angle_deg, 3);
+    SerialUSB.print(", ");
+    SerialUSB.println(r_kohm_smoothed, 4);
     nextPrintUs = now + (1000000UL / PRINT_HZ);
   }
 }
