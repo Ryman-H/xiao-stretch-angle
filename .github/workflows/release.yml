@@ -28,7 +28,7 @@ jobs:
         run: |
           mkdir release
           cp .pio/build/seeed_xiao_nrf52840_sense/firmware.elf release/
-          arm-none-eabi-objcopy -O ihex .pio/build/seeed_xiao_nrf52840_sense/firmware.elf release/firmware.hex
+          cp .pio/build/seeed_xiao_nrf52840_sense/firmware.hex release/
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
