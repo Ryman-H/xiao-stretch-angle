@@ -30,7 +30,9 @@ jobs:
           cp .pio/build/seeed_xiao_nrf52840_sense/firmware.elf release/
           cp .pio/build/seeed_xiao_nrf52840_sense/firmware.hex release/
 
-      - name: Create GitHub Release
+      - name: Create Release and Upload Assets
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ github.ref_name }}
           files: release/*
+
