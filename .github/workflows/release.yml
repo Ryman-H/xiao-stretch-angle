@@ -1,0 +1,36 @@
+name: Release Firmware
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PlatformIO
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install platformio
+
+      - name: Build Firmware
+        run: |
+          pio run
+
+      - name: Prepare artifacts
+        run: |
+          mkdir release
+          cp .pio/build/seeed_xiao_nrf52840_sense/firmware.elf release/
+          arm-none-eabi-objcopy -O ihex .pio/build/seeed_xiao_nrf52840_sense/firmware.elf release/firmware.hex
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release/*
